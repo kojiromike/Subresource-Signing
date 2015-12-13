@@ -9,18 +9,18 @@ var srs = {
      * signed in such a way that it can be validated
      * with the given public key.
      */
-    load: function srs_load(pubkey, url) {
+    load: function srs_load(armored_pubkey, url) {
         var request = new XMLHttpRequest();
         request.open('GET', url);
         request.onreadystatechange = function() {
-            if (request.readyState !== 4) return;
-            if (request.status !== 200) {
-                throw this._.http_error(request.status);
+            if (this.readyState !== 4) return;
+            if (this.status !== 200) {
+                throw srs._.http_error(this.status);
             }
-            console.log('Received response of type "' + request.responseType + '"');
-            this._.validate(request.response, pubkey); // Throws error if invalid
-            this._.attach_script(request.response);
-        }
+            srs._.validate(this.response, armored_pubkey); // Throws error if invalid
+            srs._.attach_script(this.response);
+        };
+        request.send();
     },
     /**
      * Private-ish properties and methods
@@ -31,8 +31,9 @@ var srs = {
          * to the document so it runs.
          */
         attach_script: function srs_attach_script(contents) {
+            var dearmored_contents = openpgp.cleartext.readArmored(contents).text;
             var script_element = document.createElement('script');
-            var script_text = document.createTextNode(contents);
+            var script_text = document.createTextNode(dearmored_contents);
             script_element.appendChild(script_text);
             document.head.appendChild(script_element);
         },
@@ -51,8 +52,10 @@ var srs = {
         /**
          * Throw an error if the given signed content is invalid.
          */
-        validate(content, pubkey) {
-            var promise = openpgp.verifyClearSignedMessage(pubkey, content);
+        validate(content, armored_pubkey) {
+            var signedCleartext = openpgp.cleartext.readArmored(content);
+            var pubkey = openpgp.key.readArmored(armored_pubkey).keys;
+            var promise = openpgp.verifyClearSignedMessage(pubkey, signedCleartext);
             console.log(promise);
         }
     }
