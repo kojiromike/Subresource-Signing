@@ -17,8 +17,18 @@ var srs = {
             if (this.status !== 200) {
                 throw srs._.http_error(this.status);
             }
-            srs._.validate(this.response, armored_pubkey); // Throws error if invalid
-            srs._.attach_script(this.response);
+            var response = this.response;
+            var promise = srs._.validate(this.response, armored_pubkey);
+            promise.then(function(resolve, reject) {
+                var valid = resolve.signatures.filter(sig => sig.valid).length > 0;
+                if (reject || !valid) {
+                    var message = 'The file at "' + url + '" does not have a valid signature.';
+                    message += ' Refusing to load that file!';
+                    throw message;
+                }
+                srs._.attach_script(resolve.text);
+            });
+
         };
         request.send();
     },
@@ -31,9 +41,8 @@ var srs = {
          * to the document so it runs.
          */
         attach_script: function srs_attach_script(contents) {
-            var dearmored_contents = openpgp.cleartext.readArmored(contents).text;
             var script_element = document.createElement('script');
-            var script_text = document.createTextNode(dearmored_contents);
+            var script_text = document.createTextNode(contents);
             script_element.appendChild(script_text);
             document.head.appendChild(script_element);
         },
@@ -50,13 +59,13 @@ var srs = {
         },
 
         /**
-         * Throw an error if the given signed content is invalid.
+         * Return the openpgp promise to verify the message.
          */
         validate(content, armored_pubkey) {
             var signedCleartext = openpgp.cleartext.readArmored(content);
             var pubkey = openpgp.key.readArmored(armored_pubkey).keys;
             var promise = openpgp.verifyClearSignedMessage(pubkey, signedCleartext);
-            console.log(promise);
+            return promise;
         }
     }
 };
