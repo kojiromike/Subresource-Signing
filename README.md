@@ -1,4 +1,4 @@
-# Subresource Signing The Vagrantfile is there to make it easy: Just run `vagrant up`.
+# Subresource Signing
 
 You go to a website and the browser downloads an html page. That page requests other resources, _subresources_. Subresources can come from other servers, and we trust them implicitly, but they're a significant weak point. After reading about [Subresource Integrity](http://www.w3.org/TR/SRI/), I think I understand the problem, but think the solution can be improved. This repo is intended to become a prototype of an alternate solution.
 
