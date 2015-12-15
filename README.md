@@ -24,7 +24,7 @@ Instead, I propose that developers cryptographically sign the resources they int
 
 The prototype consists of two signed JavaScript files. One has been modified after it was signed. Only the signed file should execute in the browser. The prototype uses [OpenPGPJs](http://openpgpjs.org), and requires a modern browser. Just view tests/index.html and view the browser console.
 
-**Please note:** In practice, embedding the public key anywhere on the site where the content is also hosted (like in this example code) is effectively useless. Instead it should be kept in a centralized and publicly accessible key store, or preferably, using a public key already retained or cached on the client's computer. That centralized mechanism isn't described here, only the *shim* for what would be implemented in-browser in order to prevent further tampering by a potential hack on the server-side or MITM attack for plain text connections
+**Please note:** In practice, embedding the public key anywhere on the site where the content is also hosted (like in this example code) would be effectively useless. To help mitigate risk, it should instead be kept in a centralized and publicly accessible key store, or preferably, using a public key already retained or cached on the client's computer. That centralized mechanism isn't described here. This is only a *shim* which can be implemented in-browser in order to prevent further tampering by a potential hack on the server-side or MITM attack for plain text connections.
 
 #### Browser
 Chrome 11, Safari 3.1, Firefox 21 or newer should do nicely.
