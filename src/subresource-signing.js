@@ -28,7 +28,7 @@ var srs = {
                     var promise = srs._.validate(this.response, armored_pubkey);
                     promise.then(function(data) {
                         // Consider the entire response invalid if any of the signatures are not valid.
-                        var valid = data.signatures.filter(sig => sig.valid).length < data.signatures.length;
+                        var valid = data.signatures.filter(sig => sig.valid).length == data.signatures.length;
                         if (!valid) {
                             var message = 'The file at "' + url + '" does not have a valid signature.';
                             message += ' Refusing to load that file!';
