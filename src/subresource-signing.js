@@ -10,28 +10,33 @@ var srs = {
      * with the given public key.
      */
     load: function srs_load(armored_pubkey, url) {
-        var request = new XMLHttpRequest();
-        request.open('GET', url);
-        request.onreadystatechange = function() {
-            if (this.readyState !== 4) return;
-            if (this.status !== 200) {
-                throw srs._.http_error(this.status);
-            }
-            var promise = srs._.validate(this.response, armored_pubkey);
-            promise.then(function(data) {
-                // Consider the entire response invalid if any of the signatures are not valid.
-                var valid = data.signatures.filter(sig => sig.valid).length < data.signatures.length;
-                if (!valid) {
-                    var message = 'The file at "' + url + '" does not have a valid signature.';
-                    message += ' Refusing to load that file!';
-                    throw message;
+        return new Promise(function(resolve, reject) {
+            var request = new XMLHttpRequest();
+            request.open('GET', url);
+            request.onreadystatechange = function() {
+                if (this.readyState !== 4) return;
+                if (this.status !== 200) {
+                    reject(srs._.http_error(this.status));
+                } else {
+                    var promise = srs._.validate(this.response, armored_pubkey);
+                    promise.then(function(data) {
+                        // Consider the entire response invalid if any of the signatures are not valid.
+                        var valid = data.signatures.filter(sig => sig.valid).length < data.signatures.length;
+                        if (!valid) {
+                            var message = 'The file at "' + url + '" does not have a valid signature.';
+                            message += ' Refusing to load that file!';
+                            reject(message);
+                        } else {
+                            srs._.attach_script(data.text);
+                            resolve(data.text);
+                        }
+                    });
                 }
-                srs._.attach_script(data.text);
-            });
-
-        };
-        request.send();
+            };
+            request.send();
+        });
     },
+
     /**
      * Private-ish properties and methods
      */
@@ -39,6 +44,8 @@ var srs = {
         /**
          * Assume the contents is valid, and attach the script
          * to the document so it runs.
+         *
+         * @param contents
          */
         attach_script: function srs_attach_script(contents) {
             var script_element = document.createElement('script');
@@ -49,6 +56,10 @@ var srs = {
 
         /**
          * Return an error describing failure to load resource.
+         *
+         * @param status
+         * @param url
+         * @returns {string}
          */
         http_error: function srs_http_error(status, url) {
             var message = '';
@@ -60,12 +71,15 @@ var srs = {
 
         /**
          * Return the openpgp promise to verify the message.
+         *
+         * @param content
+         * @param armored_pubkey
+         * @returns {Promise}
          */
         validate(content, armored_pubkey) {
             var signedCleartext = openpgp.cleartext.readArmored(content);
             var pubkey = openpgp.key.readArmored(armored_pubkey).keys;
-            var promise = openpgp.verifyClearSignedMessage(pubkey, signedCleartext);
-            return promise;
+            return openpgp.verifyClearSignedMessage(pubkey, signedCleartext);
         }
     }
 };

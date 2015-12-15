@@ -46,8 +46,12 @@
         <h1>Test Subresource Signing!</h1>
         <script>
             (function (pubkey) {
-                srs.load(pubkey, 'valid-sig-test.js.asc');
-                srs.load(pubkey, 'invalid-sig-test.js.asc');
+                function whoops(err) {
+                    console.error("Error validating signed resorce: " + err)
+                }
+
+                srs.load(pubkey, 'valid-sig-test.js.asc').catch(whoops);
+                srs.load(pubkey, 'invalid-sig-test.js.asc').catch(whoops);
             }(pubkey.innerHTML.replace(/\n +/g, '\n')));
         </script>
     </body>
