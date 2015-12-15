@@ -18,14 +18,15 @@ var srs = {
                 throw srs._.http_error(this.status);
             }
             var promise = srs._.validate(this.response, armored_pubkey);
-            promise.then(function(resolve, reject) {
-                var valid = resolve.signatures.filter(sig => sig.valid).length > 0;
-                if (reject || !valid) {
+            promise.then(function(data) {
+                // Consider the entire response invalid if any of the signatures are not valid.
+                var valid = data.signatures.filter(sig => sig.valid).length < data.signatures.length;
+                if (!valid) {
                     var message = 'The file at "' + url + '" does not have a valid signature.';
                     message += ' Refusing to load that file!';
                     throw message;
                 }
-                srs._.attach_script(resolve.text);
+                srs._.attach_script(data.text);
             });
 
         };
