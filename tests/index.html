@@ -8,38 +8,39 @@
         <script src="../src/subresource-signing.js"></script>
         <!-- In the simplest case, we just want to verify that some secondary resource loads iff its signature is valid. -->
 
-        <meta name="pubkey" content="
------BEGIN PGP PUBLIC KEY BLOCK-----
-Version: GnuPG v1
+        <script type="application/pgp-keys" id="pubkey">
+            -----BEGIN PGP PUBLIC KEY BLOCK-----
+            Version: GnuPG v1
 
-mQENBFZtzyABCADZPNcPQP+iRVLoItEprc/XIhmoLGDrpO9aHYN0ORgdQLlKIo6k
-RJfvJefsaMPYO90Mnqo2SYxN3Gl8ohGuXEZrFL8fRpL4098LnKN46O+PEIsKciJj
-liO3bz9R/Az7NHCJyli1KcZsjceaHwGsoS9mR+4/L8qfTUu6Ji6PbpZVvpNNgMlh
-18gz+xuhlMDF9BAoNvEseycjYYeulMfY96cvKA5/3t+03lz4S7pfft9zuKdb6p2q
-gPFn8nJQZNE+1C4KSx9yfw+PIE4tvMGU+5uPf2xINrA7KsQvhcuvIZ9Bp3fBzp/+
-WPZ9B8wbt+SmCaFB9Onl4qY7GUrn16F8OC7JABEBAAG0VU1pY2hhZWwgQS4gU21p
-dGggKFRlc3QgS2V5cyBmb3IgU3VicmVzb3VyY2UgU2lnbmluZyBQcm90b3R5cGUp
-IDxtaWNoYWVsQHNtaXRoLWxpLmNvbT6JATgEEwECACIFAlZtzyACGwMGCwkIBwMC
-BhUIAgkKCwQWAgMBAh4BAheAAAoJEPZTMtku9DxReFYH/R7Dos2/s1zmroMOBsN2
-96kCcy+Qnw0T3Qv5PAFb091207FgXKq3WMriHiiGe5axmXuCOnE9ZkEodz4P8emm
-yfEvUMdL6u6dKfcM5SwkLZynWRaZ1lS2oZtZNB8gg9YVzi8M8ci7y16hvw08fRrj
-i/sE7uMF41e3qOiBk9laIFV/8V6c1T4Dtl7H4n1yVuETwSuFHM2h+y7qv9mvjnPr
-Tcc2m/iDMDY0KE7R5sTUYR4b7m3rhdAOTdqxhGy9UwdUsMhjc7XZBY6UAK7TQvgb
-f2H8jst15WrYifQV6TXb2bToOb7487VdQtp06rNjijz1UiES0HX5PEFtgOLUfpOi
-6Ey5AQ0EVm3PIAEIAMr6+ZieOImMq8gN8lDUSLmsM8maoc0fgfUKxsHjFlb1/I9S
-YkGG+kW6YwPTh6ozPc9uCZRKxNJ+b55JqFz2Jav8/ckSDWX3jnArz2Ayo4PMFUQP
-DD/P6u3u4/f7JEaEnSvQgFI+vXpLRxE07Xu+8qw76aovZMCcFlNGwZYzw++n9Wqc
-0YSFmtpFJ4/T6b9t658VU7ilZpiaDej9KUQ7gusaNzXOeKfbtzIs7IB/ie2Wbsvp
-fczClqIkJEUv5T1tm12SQan9gRBCB4BwS7qT+i83mPipV+su6oJtjj3C2z7cDWW1
-FpDNsUF85DTDmkDGJhG1905V0CWhgHAU4UJ08cMAEQEAAYkBHwQYAQIACQUCVm3P
-IAIbDAAKCRD2UzLZLvQ8URn+CACykk7b3z4bY1y54EeEreGZeZLEjK0xa/vhX2Vk
-qu7JINROBuni0zGyKF6E0f5we6JWJR5CjiGsdSN9aH9qr3NN9XpJApa1MYxw6IK7
-QhuGu0TbryS4OeY9vJHSCbkOV71raf94nIDkzVbV8tRzPdZsYxbTE91xM7WksaNd
-qkYyaGUKaJ/OvUCY8LmmEfK9Hu5mAbTzYZ3JWCTk21hjW5r1PlhztwIZRlB0zuyn
-cR8iTBqpIgywmVWHWT3MbsP7AV4eoXbu/I/ZnQIBgoduHCmwTQlwY0Be0ZozDRRN
-nY0HEeaDHR2D8y1tvxAAT6YPyR8TItqRb9oiFmf4hZfGHYwY
-=WsIa
------END PGP PUBLIC KEY BLOCK-----">
+            mQENBFZtzyABCADZPNcPQP+iRVLoItEprc/XIhmoLGDrpO9aHYN0ORgdQLlKIo6k
+            RJfvJefsaMPYO90Mnqo2SYxN3Gl8ohGuXEZrFL8fRpL4098LnKN46O+PEIsKciJj
+            liO3bz9R/Az7NHCJyli1KcZsjceaHwGsoS9mR+4/L8qfTUu6Ji6PbpZVvpNNgMlh
+            18gz+xuhlMDF9BAoNvEseycjYYeulMfY96cvKA5/3t+03lz4S7pfft9zuKdb6p2q
+            gPFn8nJQZNE+1C4KSx9yfw+PIE4tvMGU+5uPf2xINrA7KsQvhcuvIZ9Bp3fBzp/+
+            WPZ9B8wbt+SmCaFB9Onl4qY7GUrn16F8OC7JABEBAAG0VU1pY2hhZWwgQS4gU21p
+            dGggKFRlc3QgS2V5cyBmb3IgU3VicmVzb3VyY2UgU2lnbmluZyBQcm90b3R5cGUp
+            IDxtaWNoYWVsQHNtaXRoLWxpLmNvbT6JATgEEwECACIFAlZtzyACGwMGCwkIBwMC
+            BhUIAgkKCwQWAgMBAh4BAheAAAoJEPZTMtku9DxReFYH/R7Dos2/s1zmroMOBsN2
+            96kCcy+Qnw0T3Qv5PAFb091207FgXKq3WMriHiiGe5axmXuCOnE9ZkEodz4P8emm
+            yfEvUMdL6u6dKfcM5SwkLZynWRaZ1lS2oZtZNB8gg9YVzi8M8ci7y16hvw08fRrj
+            i/sE7uMF41e3qOiBk9laIFV/8V6c1T4Dtl7H4n1yVuETwSuFHM2h+y7qv9mvjnPr
+            Tcc2m/iDMDY0KE7R5sTUYR4b7m3rhdAOTdqxhGy9UwdUsMhjc7XZBY6UAK7TQvgb
+            f2H8jst15WrYifQV6TXb2bToOb7487VdQtp06rNjijz1UiES0HX5PEFtgOLUfpOi
+            6Ey5AQ0EVm3PIAEIAMr6+ZieOImMq8gN8lDUSLmsM8maoc0fgfUKxsHjFlb1/I9S
+            YkGG+kW6YwPTh6ozPc9uCZRKxNJ+b55JqFz2Jav8/ckSDWX3jnArz2Ayo4PMFUQP
+            DD/P6u3u4/f7JEaEnSvQgFI+vXpLRxE07Xu+8qw76aovZMCcFlNGwZYzw++n9Wqc
+            0YSFmtpFJ4/T6b9t658VU7ilZpiaDej9KUQ7gusaNzXOeKfbtzIs7IB/ie2Wbsvp
+            fczClqIkJEUv5T1tm12SQan9gRBCB4BwS7qT+i83mPipV+su6oJtjj3C2z7cDWW1
+            FpDNsUF85DTDmkDGJhG1905V0CWhgHAU4UJ08cMAEQEAAYkBHwQYAQIACQUCVm3P
+            IAIbDAAKCRD2UzLZLvQ8URn+CACykk7b3z4bY1y54EeEreGZeZLEjK0xa/vhX2Vk
+            qu7JINROBuni0zGyKF6E0f5we6JWJR5CjiGsdSN9aH9qr3NN9XpJApa1MYxw6IK7
+            QhuGu0TbryS4OeY9vJHSCbkOV71raf94nIDkzVbV8tRzPdZsYxbTE91xM7WksaNd
+            qkYyaGUKaJ/OvUCY8LmmEfK9Hu5mAbTzYZ3JWCTk21hjW5r1PlhztwIZRlB0zuyn
+            cR8iTBqpIgywmVWHWT3MbsP7AV4eoXbu/I/ZnQIBgoduHCmwTQlwY0Be0ZozDRRN
+            nY0HEeaDHR2D8y1tvxAAT6YPyR8TItqRb9oiFmf4hZfGHYwY
+            =WsIa
+            -----END PGP PUBLIC KEY BLOCK-----
+        </script>
     </head>
     <body>
         <h1>Test Subresource Signing!</h1>
@@ -47,7 +48,7 @@ nY0HEeaDHR2D8y1tvxAAT6YPyR8TItqRb9oiFmf4hZfGHYwY
             (function (pubkey) {
                 srs.load(pubkey, 'valid-sig-test.js.asc');
                 srs.load(pubkey, 'invalid-sig-test.js.asc');
-            }(document.getElementsByName('pubkey').item(0).content));
+            }(pubkey.innerHTML.replace(/\n +/g, '\n')));
         </script>
     </body>
 </html>
