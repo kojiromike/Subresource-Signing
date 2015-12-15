@@ -16,7 +16,7 @@ var srs = {
      * @param url
      * @returns {Promise}
      */
-    load: function srs_load(armored_pubkey, url) {
+    load: function(armored_pubkey, url) {
         return new Promise(function(resolve, reject) {
             var request = new XMLHttpRequest();
             request.open('GET', url);
