@@ -17,7 +17,6 @@ var srs = {
             if (this.status !== 200) {
                 throw srs._.http_error(this.status);
             }
-            var response = this.response;
             var promise = srs._.validate(this.response, armored_pubkey);
             promise.then(function(resolve, reject) {
                 var valid = resolve.signatures.filter(sig => sig.valid).length > 0;
