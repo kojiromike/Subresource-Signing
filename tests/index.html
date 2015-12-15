@@ -6,7 +6,9 @@
 
         <script src="openpgp.js"></script>
         <script src="../src/subresource-signing.js"></script>
-        <!-- In the simplest case, we just want to verify that some secondary resource loads iff its signature is valid. -->
+
+        <!-- In the simplest case, we just want to verify that some secondary resource loads iff its signature is valid.       -->
+        <!-- Note that, in practice, embedding the public key here is effectively useless. Please see README.md for more info. -->
 
         <script type="application/pgp-keys" id="pubkey">
             -----BEGIN PGP PUBLIC KEY BLOCK-----
