@@ -28,7 +28,10 @@ var srs = {
                             reject(message);
                         } else {
                             srs._.attach_script(data.text);
-                            resolve(data.text);
+                            resolve({
+                                url,
+                                gpg: data
+                            });
                         }
                     });
                 }
