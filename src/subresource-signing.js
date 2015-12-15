@@ -8,6 +8,13 @@ var srs = {
      * Load a signed resource at the given url
      * signed in such a way that it can be validated
      * with the given public key.
+     *
+     * IMPORTANT: This only accepts JavaScript files in *.js.asc cleartext signed message format. It does not load the
+     * actual JavaScript file, only clear contents within the *.js.asc file itself if it validates.
+     *
+     * @param armored_pubkey
+     * @param url
+     * @returns {Promise}
      */
     load: function srs_load(armored_pubkey, url) {
         return new Promise(function(resolve, reject) {
@@ -50,7 +57,7 @@ var srs = {
          *
          * @param contents
          */
-        attach_script: function srs_attach_script(contents) {
+        attach_script: function(contents) {
             var script_element = document.createElement('script');
             var script_text = document.createTextNode(contents);
             script_element.appendChild(script_text);
@@ -64,7 +71,7 @@ var srs = {
          * @param url
          * @returns {string}
          */
-        http_error: function srs_http_error(status, url) {
+        http_error: function(status, url) {
             var message = '';
             message += 'Subresource Signature JavaScript Loader failed to load';
             message += ' the resource at url "' + url + '". That server returned';
