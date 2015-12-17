@@ -16,7 +16,7 @@ var srs = {
      * @param url
      * @returns {Promise}
      */
-    load: function(armored_pubkey, url) {
+    load: function srs_load(armored_pubkey, url) {
         return new Promise(function(resolve, reject) {
             var request = new XMLHttpRequest();
             request.open('GET', url);
@@ -57,7 +57,7 @@ var srs = {
          *
          * @param contents
          */
-        attach_script: function(contents) {
+        attach_script: function srs_attach_script(contents) {
             var script_element = document.createElement('script');
             var script_text = document.createTextNode(contents);
             script_element.appendChild(script_text);
@@ -71,7 +71,7 @@ var srs = {
          * @param url
          * @returns {string}
          */
-        http_error: function(status, url) {
+        http_error: function srs_http_error(status, url) {
             var message = '';
             message += 'Subresource Signature JavaScript Loader failed to load';
             message += ' the resource at url "' + url + '". That server returned';
